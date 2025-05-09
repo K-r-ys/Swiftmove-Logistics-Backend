@@ -52,12 +52,7 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_NAME = process.env.DB_NAME;
 
 // Set up database connection
-const db = mysql.createConnection({
-  host: DB_HOST,
-  user: DB_USER,
-  password: DB_PASSWORD,
-  database: DB_NAME,
-});
+const db = mysql.createConnection(process.env.MYSQL_URL);
 
 // Connect to the database
 db.connect((err) => {
