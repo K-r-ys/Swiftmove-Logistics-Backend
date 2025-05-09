@@ -46,21 +46,18 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Access environment variables from .env file
 const PORT = process.env.PORT || 5000;
-const DB_HOST = process.env.DB_HOST;
-const DB_USER = process.env.DB_USER;
-const DB_PASSWORD = process.env.DB_PASSWORD;
-const DB_NAME = process.env.DB_NAME;
 
+// Log the MYSQL_URL to verify it's correct
 console.log("MYSQL_URL =", process.env.MYSQL_URL);
 
-// Set up database connection
+// Set up the database connection using the MYSQL_URL
 const db = mysql.createConnection(process.env.MYSQL_URL);
 
 // Connect to the database
 db.connect((err) => {
   if (err) {
     console.error("Error connecting to the database:", err);
-    process.exit(1);
+    process.exit(1); // Exit the application if connection fails
   }
   console.log("Database connected successfully");
 });
