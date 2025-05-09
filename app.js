@@ -51,6 +51,8 @@ const DB_USER = process.env.DB_USER;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_NAME = process.env.DB_NAME;
 
+console.log("MYSQL_URL =", process.env.MYSQL_URL);
+
 // Set up database connection
 const db = mysql.createConnection(process.env.MYSQL_URL);
 
