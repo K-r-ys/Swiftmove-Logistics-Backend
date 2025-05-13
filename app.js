@@ -44,11 +44,12 @@ const swaggerSpec = swaggerJsdoc(options);
 // Serve Swagger UI at '/api-docs' endpoint
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// Log the MYSQL_URL to verify it's correct
+console.log("Environment Variables: ", process.env);
+console.log("MYSQL_URL =", process.env.MYSQL_URL);
+
 // Access environment variables from .env file
 const PORT = process.env.PORT || 5000;
-
-// Log the MYSQL_URL to verify it's correct
-console.log("MYSQL_URL =", process.env.MYSQL_URL);
 
 // Set up the database connection using the MYSQL_URL
 const db = mysql.createConnection(process.env.MYSQL_URL);
