@@ -44,23 +44,31 @@ const swaggerSpec = swaggerJsdoc(options);
 // Serve Swagger UI at '/api-docs' endpoint
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Log the MYSQL_URL to verify it's correct
-console.log("Environment Variables: ", process.env);
-console.log("MYSQL_URL =", process.env.MYSQL_URL);
-
 // Access environment variables from .env file
 const PORT = process.env.PORT || 5000;
+const DB_HOST = process.env.DB_HOST;
+const DB_USER = process.env.DB_USER;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_NAME = process.env.DB_NAME;
 
-// Set up the database connection using the MYSQL_URL
-const db = mysql.createConnection(process.env.MYSQL_URL);
+// Set up database connection
+const db = mysql.createConnection({
+  host: DB_HOST,
+  user: DB_USER,
+  password: DB_PASSWORD,
+  database: DB_NAME,
+});
 
 // Connect to the database
 db.connect((err) => {
   if (err) {
     console.error("Error connecting to the database:", err);
-    process.exit(1); // Exit the application if connection fails
+    process.exit(1);
   }
   console.log("Database connected successfully");
+
+  // Set the db object for access in controllers
+  app.set("db", db);
 });
 
 // Routes (use swagger-jsdoc for documentation)
